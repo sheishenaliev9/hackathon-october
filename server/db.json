@@ -1,3 +1,36 @@
 {
-    
+  "ideas": [
+    {
+      "id": 1,
+      "title": "something interesting 1",
+      "content": "Lorem ipsum dolor sit amet, consectetur adipisicing elit. Amet distinctio id eum sunt libero saepe eos adipisci repellendus mollitia porro.",
+      "views": 50,
+      "category": "",
+      "user": 1
+    },
+    {
+        "id": 2,
+        "title": "something interesting 2",
+        "content": "Lorem ipsum dolor sit amet, consectetur adipisicing elit. Amet distinctio id eum sunt libero saepe eos adipisci repellendus mollitia porro.",
+        "views": 50,
+        "category": "",
+        "user": 2
+      },
+      {
+        "id": 3,
+        "title": "something interesting 3",
+        "content": "Lorem ipsum dolor sit amet, consectetur adipisicing elit. Amet distinctio id eum sunt libero saepe eos adipisci repellendus mollitia porro.",
+        "views": 50,
+        "category": "",
+        "user": 3
+      },
+      {
+        "id": 4,
+        "title": "something interesting 4",
+        "content": "Lorem ipsum dolor sit amet, consectetur adipisicing elit. Amet distinctio id eum sunt libero saepe eos adipisci repellendus mollitia porro.",
+        "views": 50,
+        "category": "",
+        "user": 4
+      }
+  ]
 }
