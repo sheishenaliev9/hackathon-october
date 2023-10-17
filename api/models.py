@@ -47,3 +47,12 @@ class Status(models.Model):
 
     def __str__(self):
         return self.status
+    
+class Comment(models.Model):
+    text = models.TextField(max_length=500)
+    user = models.ForeignKey(User, on_delete=models.CASCADE)
+    idea = models.ForeignKey(Idea, on_delete=models.CASCADE)
+
+    def __str__(self) -> str:
+        return f'{self.idea} by {self.user}'
+    

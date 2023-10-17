@@ -73,3 +73,15 @@ class StatusCreate(generics.CreateAPIView):
 
     def perform_create(self, serializer):
         serializer.save()
+
+
+class CommentCreate(generics.CreateAPIView):
+    serializer_class = CommentSerializer
+    permission_classes = [permissions.IsAuthenticated]
+
+    def get_queryset(self):
+        user = self.request.user
+        return Comment.objects.filter(user=user)
+    
+    def perform_create(self, serializer):
+        serializer.save(user=self.request.user)
