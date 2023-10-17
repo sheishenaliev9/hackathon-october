@@ -54,6 +54,7 @@ MIDDLEWARE = [
 
     # Corsheaders
     'corsheaders.middleware.CorsMiddleware',
+    'django.middleware.common.CommonMiddleware',
 ]
 
 ROOT_URLCONF = 'config.urls'
@@ -155,6 +156,7 @@ REST_FRAMEWORK = {
 
 # allowing web pages to access objects from third-party Internet resources
 CORS_ALLOWED_ORIGINS = [
+    "http://localhost:5175",
     # Add other allowed origins here if needed
 ]
 
