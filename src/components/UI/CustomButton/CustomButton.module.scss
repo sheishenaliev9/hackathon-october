@@ -6,4 +6,9 @@
   border-radius: 5px;
   font-size: 15px;
   letter-spacing: 2px;
+  transition: .3s;
 }
+.customButton:hover {
+  background-color: #399E5A;
+}
+
