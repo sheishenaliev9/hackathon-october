@@ -32,12 +32,14 @@ interface IdeaProps {
 }
 
 export const IdeaItem: React.FC<IdeaProps> = ({ idea }) => {
-  const { title, content } = idea;
+  const { title, photo_1 } = idea;
 
   return (
     <div className={styles.idea}>
+      <div>
+        <img src={photo_1} alt="" />
+      </div>
       <h2>{title}</h2>
-      <p>{content}</p>
     </div>
   );
 };

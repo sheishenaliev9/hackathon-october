@@ -1,6 +1,7 @@
 import { Link } from "react-router-dom";
 import logo from "../../assets/idea-logo.svg";
 import styles from "./Header.module.scss";
+import { CustomButton } from "..";
 
 export const Header = () => {
   return (
@@ -19,8 +20,8 @@ export const Header = () => {
           </nav>
 
           <div className={styles.registration}>
-            <Link to="#">
-              <button>Регистрация</button>
+            <Link to="/authorization">
+              <CustomButton>Регистрация</CustomButton>
             </Link>
           </div>
         </div>

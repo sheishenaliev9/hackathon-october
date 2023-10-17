@@ -3,6 +3,8 @@ import axios from "axios";
 
 const IDEAS_URL = "http://192.168.88.59:8000/api/v1";
 
+
+
 export const getIdeas = createAsyncThunk("getIdeas", async () => {
   try {
     const { data } = await axios.get(`${IDEAS_URL}/ideas/`);
@@ -11,3 +13,4 @@ export const getIdeas = createAsyncThunk("getIdeas", async () => {
     console.log(error);
   }
 });
+
