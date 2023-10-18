@@ -2,38 +2,63 @@
   "ideas": [
     {
       "id": 1,
-      "title": "something interesting 1",
+      "title": "Idea 1",
       "content": "Lorem ipsum dolor sit amet, consectetur adipisicing elit. Amet distinctio id eum sunt libero saepe eos adipisci repellendus mollitia porro.",
-      "views": 50,
-      "category": "",
-      "mainPhoto": "",
-      "user": 1
+      "photo_1": "https://images.prismic.io/oxylabs-sm/9bb05098-1718-488f-811e-3769bbd4392e_best+prog.jpg?auto=compress,format&rect=0,73,870,435&w=1200&h=600&fm=webp&q=75",
+      "photo_2": null,
+      "photo_3": null,
+      "photo_4": null,
+      "create": "2023-10-17T16:33:08.249790+06:00",
+      "update": "2023-10-17T17:26:08.583852+06:00",
+      "views": 0,
+      "user": 2
     },
     {
-        "id": 2,
-        "title": "something interesting 2",
-        "content": "Lorem ipsum dolor sit amet, consectetur adipisicing elit. Amet distinctio id eum sunt libero saepe eos adipisci repellendus mollitia porro.",
-        "views": 50,
-        "category": "",
-        "user": 2
-      },
-      {
-        "id": 3,
-        "title": "something interesting 3",
-        "content": "Lorem ipsum dolor sit amet, consectetur adipisicing elit. Amet distinctio id eum sunt libero saepe eos adipisci repellendus mollitia porro.",
-        "views": 50,
-        "category": "",
-        "user": 3
-      },
-      {
-        "id": 4,
-        "title": "something interesting 4",
-        "content": "Lorem ipsum dolor sit amet, consectetur adipisicing elit. Amet distinctio id eum sunt libero saepe eos adipisci repellendus mollitia porro.",
-        "views": 50,
-        "category": "",
-        "user": 4
-      }
+      "id": 2,
+      "title": "Idea 2",
+      "content": "Lorem ipsum dolor sit amet, consectetur adipisicing elit. Amet distinctio id eum sunt libero saepe eos adipisci repellendus mollitia porro.",
+      "photo_1": "https://images.prismic.io/oxylabs-sm/9bb05098-1718-488f-811e-3769bbd4392e_best+prog.jpg?auto=compress,format&rect=0,73,870,435&w=1200&h=600&fm=webp&q=75",
+      "photo_2": null,
+      "photo_3": null,
+      "photo_4": null,
+      "create": "2023-10-17T16:33:20.481316+06:00",
+      "update": "2023-10-17T17:25:25.068461+06:00",
+      "views": 0,
+      "user": 2
+    },
+    {
+      "id": 3,
+      "title": "idea 3",
+      "content": "Lorem ipsum dolor sit amet, consectetur adipisicing elit. Amet distinctio id eum sunt libero saepe eos adipisci repellendus mollitia porro.",
+      "photo_1": "https://images.prismic.io/oxylabs-sm/9bb05098-1718-488f-811e-3769bbd4392e_best+prog.jpg?auto=compress,format&rect=0,73,870,435&w=1200&h=600&fm=webp&q=75",
+      "photo_2": null,
+      "photo_3": null,
+      "photo_4": null,
+      "create": "2023-10-17T16:33:29.482539+06:00",
+      "update": "2023-10-17T19:04:36.067087+06:00",
+      "views": 1000,
+      "user": 2
+    },
+    {
+      "id": 4,
+      "title": "test",
+      "content": "test",
+      "photo_1": "https://images.prismic.io/oxylabs-sm/9bb05098-1718-488f-811e-3769bbd4392e_best+prog.jpg?auto=compress,format&rect=0,73,870,435&w=1200&h=600&fm=webp&q=75",
+      "photo_2": null,
+      "photo_3": null,
+      "photo_4": null,
+      "create": "2023-10-19T02:25:25.055368+06:00",
+      "update": "2023-10-19T02:25:25.055436+06:00",
+      "views": 0,
+      "user": 6
+    }
+  ],
+  "users": [
+    {
+      "username": "root1",
+      "email": "chtoto@mail.ru",
+      "password": "aidarqwerty",
+      "id": 1
+    }
   ]
-
-  
 }

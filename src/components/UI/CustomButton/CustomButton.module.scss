@@ -7,10 +7,13 @@
   font-size: 15px;
   letter-spacing: 2px;
   transition: .3s;
+  border: 2px solid #ffb400;
   outline: none;
-}
-.customButton:hover {
-  background-color: #399E5A;
+  
+  &:hover {
+    background-color: transparent;
+    color: #4a4e69;
+  }
 }
 
 

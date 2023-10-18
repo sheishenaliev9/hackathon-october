@@ -22,7 +22,9 @@ export const Login = () => {
 
   const dispatch = useAppDispatch();
 
-  const onSubmit: SubmitHandler<Inputs> = (data) => {};
+  const onSubmit: SubmitHandler<Inputs> = (data) => {
+    
+  };
 
   return (
     <div className={styles.auth}>

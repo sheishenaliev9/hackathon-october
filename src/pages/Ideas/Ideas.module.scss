@@ -12,5 +12,29 @@
     padding: 30px;
     border-radius: 15px;
     box-shadow: 0 4px 4.25px 0.75px rgba(0, 0, 0, 0.13);
+
+    .idea__title {
+      display: flex;
+      align-items: center;
+      justify-content: space-between;
+
+      padding: 15px 0;
+
+      h2 {
+        color: #4a4e69;
+      }
+
+      p {
+        font-size: 18px;
+        font-weight: 700;
+        color: #4a4e69;
+      }
+    }
+
+    .idea__image {
+      img {
+        width: 100%;
+      }
+    }
   }
 }
