@@ -34,6 +34,7 @@ INSTALLED_APPS = [
     'django.contrib.staticfiles',
 
     # Third party libraries
+    'drf_yasg',
     'rest_framework',               # Django Rest Framework for building APIs
     'rest_framework.authtoken',     # Token-based authentication for DRF
     'corsheaders',                  # Django CORS headers for handling Cross-Origin Resource Sharing
