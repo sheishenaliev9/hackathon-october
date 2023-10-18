@@ -2,7 +2,10 @@ import { useAppDispatch } from "../../hooks";
 import { addUser } from "../../store";
 import { useForm, SubmitHandler } from "react-hook-form";
 import { CustomButton } from "../../components";
+import { NavLink } from "react-router-dom";
+import { AiFillEye, AiFillEyeInvisible } from "react-icons/ai";
 import styles from "./Auth.module.scss";
+import { useState } from "react";
 
 type Inputs = {
   email: string;
@@ -12,11 +15,11 @@ type Inputs = {
 };
 
 export const Auth = () => {
+  const [eye, setEye] = useState(false);
   const {
     register,
     handleSubmit,
     formState: { errors },
-    getValues,
   } = useForm<Inputs>();
 
   const dispatch = useAppDispatch();
@@ -30,6 +33,7 @@ export const Auth = () => {
       <form className={styles.auth__form} onSubmit={handleSubmit(onSubmit)}>
         <h2>Регистрация</h2>
         <input
+          className={errors.username ? styles.errorInput : styles.form__input}
           type="username"
           placeholder="Имя"
           {...register("username", { required: true, minLength: 5 })}
@@ -41,6 +45,7 @@ export const Auth = () => {
         )}
 
         <input
+          className={errors.email ? styles.errorInput : styles.form__input}
           type="email"
           placeholder="Email"
           {...register("email", {
@@ -54,34 +59,32 @@ export const Auth = () => {
           </span>
         )}
 
-        <input
-          type="password"
-          placeholder="Пароль"
-          {...register("password", { required: true, minLength: 8 })}
-        />
+        <div className={styles.passwordBlock}>
+          <input
+            className={errors.password ? styles.errorInput : styles.form__input}
+            type={eye ? "text" : "password"}
+            placeholder="Пароль"
+            {...register("password", { required: true, minLength: 8 })}
+          />
+          {eye ? (
+            <AiFillEye onClick={() => setEye(!eye)} />
+          ) : (
+            <AiFillEyeInvisible onClick={() => setEye(!eye)} />
+          )}
+        </div>
         {errors.password?.type === "minLength" && (
           <span className={styles.error}>
             Пароль должен содержать не менее 8 символов
           </span>
         )}
 
-        <input
-          type="password"
-          placeholder="Подтвердите пароль"
-          {...register("confirmPassword", { required: true })}
-        />
-        {errors.confirmPassword?.type === "required" && (
-          <span className={styles.error}>Подтвердите пароль</span>
-        )}
-        {getValues("password") !== getValues("confirmPassword") && (
-          <span className={styles.error}>Пароли не совпадают</span>
-        )}
-
-        {/* {Object.keys(errors).length > 0 && (
-          <span className={styles.error}>Заполните все поля</span>
-        )} */}
-
         <CustomButton type="submit">Зарегистрироваться</CustomButton>
+        <p className={styles.loginLink}>
+          Если у вас уже имеется аккаунт:{" "}
+          <span>
+            <NavLink to="/login">Войти</NavLink>
+          </span>
+        </p>
       </form>
     </div>
   );

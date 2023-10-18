@@ -1,7 +1,8 @@
 import { Link } from "react-router-dom";
 import logo from "../../assets/idea-logo.svg";
 import styles from "./Header.module.scss";
-import { CustomButton } from "..";
+import { FaUserAlt } from 'react-icons/fa';
+
 
 export const Header = () => {
   return (
@@ -20,8 +21,8 @@ export const Header = () => {
           </nav>
 
           <div className={styles.registration}>
-            <Link to="/authorization">
-              <CustomButton>Регистрация</CustomButton>
+            <Link to="/register">
+              <FaUserAlt className={styles.profile_icon} />
             </Link>
           </div>
         </div>
