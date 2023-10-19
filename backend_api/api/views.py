@@ -29,16 +29,11 @@ class ViewSetIdea(viewsets.ModelViewSet):
     queryset = Idea.objects.all().order_by('-views', '-create')
     serializer_class = IdeaSerializer
 
-    def post_view(self, request, *args, **kwargs):
-        instance = self.get_object()
-        instance.views += 1  # Increase the views value by 1
-        instance.save()  # Saving the Idea object with updated views
-
-        serializer = self.get_serializer(instance)
-        return Response(serializer.data)
 
     def retrieve(self, request, pk=None):
         idea = self.get_object()
+        idea.views += 1  # Increase the views value by 1
+        idea.save()  # Saving the Idea object with updated views
         idea_serializer = IdeaSerializer(idea)
 
         comments = Comment.objects.filter(idea=idea)
@@ -50,6 +45,7 @@ class ViewSetIdea(viewsets.ModelViewSet):
         idea_data = idea_serializer.data
         idea_data['comments'] = comment_serializer.data
         idea_data['category'] = category_serializer.data
+        print("Testssssssssssssss")
 
         return Response(idea_data)
 

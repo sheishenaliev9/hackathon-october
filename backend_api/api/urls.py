@@ -12,5 +12,4 @@ router.register(r'categories', views.ViewSetCategory)
 urlpatterns = [
     path('', include(router.urls)),
     path('userprofile/<int:pk>/', views.UserDetail.as_view(), name='user-detail'),
-    path('ideaview/<int:pk>/', views.ViewSetIdea.as_view({'post': 'post_view'})),
 ]
