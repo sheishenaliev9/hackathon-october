@@ -9,4 +9,5 @@ router.register(r'ideas', views.ViewSetIdea)
 
 urlpatterns = [
     path('', include(router.urls)),
+    path('userprofile/<int:pk>/', views.UserDetail.as_view(), name='user-detail'),
 ]
