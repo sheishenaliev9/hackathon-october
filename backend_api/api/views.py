@@ -26,7 +26,7 @@ class ViewSetComment(viewsets.ModelViewSet):
 
 
 class ViewSetIdea(viewsets.ModelViewSet):
-    queryset = Idea.objects.all().order_by('-views', '-create')
+    queryset = Idea.objects.all().order_by('-views', '-create', '-like')
     serializer_class = IdeaSerializer
 
 
@@ -105,7 +105,8 @@ class ViewSetVoice(viewsets.ModelViewSet):
             return Response({'error': 'Voice not found.'})
 
         idea = Idea.objects.get(pk=voice.idea.id)
-        if voice.choice == "true":
+        print(voice.choice)
+        if voice.choice == True:
             idea.like -= 1
         else:
             idea.dislike -= 1
