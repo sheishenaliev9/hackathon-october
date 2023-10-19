@@ -22,6 +22,8 @@ class Idea(models.Model):
     photo_4 = models.ImageField(upload_to='idea/', blank=True, null=True)
     create = models.DateTimeField(auto_now_add=True)
     update = models.DateTimeField(auto_now=True)
+    like = models.IntegerField(default=0)
+    dislike = models.IntegerField(default=0)
     views = models.IntegerField(default=0)
     user = models.ForeignKey(User, on_delete=models.CASCADE)
     cat = models.ForeignKey('Category', on_delete=models.PROTECT)
@@ -45,3 +47,12 @@ class Category(models.Model):
 
     def __str__(self):
         return self.category
+
+
+class Voice(models.Model):
+    choice = models.BooleanField(null=True)
+    idea = models.OneToOneField(Idea, on_delete=models.CASCADE)
+    user = models.ForeignKey(User, on_delete=models.CASCADE)
+
+    def __str__(self):
+        return f"{self.idea.title}: {self.idea}"

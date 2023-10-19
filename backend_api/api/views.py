@@ -5,8 +5,8 @@ from rest_framework.response import Response
 from django.db.models.signals import post_save
 from rest_framework.permissions import IsAuthenticated
 
-from .models import Profile, Idea, Comment, Category
-from .serializers import ProfileSerializer, IdeaSerializer, UserSerializer, CommentSerializer, CategorySerializer
+from .models import Profile, Idea, Comment, Category, Voice
+from .serializers import ProfileSerializer, IdeaSerializer, UserSerializer, CommentSerializer, CategorySerializer, VoiceSerializer
 
 
 class ViewSetProfile(viewsets.ModelViewSet):
@@ -45,7 +45,6 @@ class ViewSetIdea(viewsets.ModelViewSet):
         idea_data = idea_serializer.data
         idea_data['comments'] = comment_serializer.data
         idea_data['category'] = category_serializer.data
-        print("Testssssssssssssss")
 
         return Response(idea_data)
 
@@ -53,6 +52,68 @@ class ViewSetIdea(viewsets.ModelViewSet):
 class UserDetail(generics.RetrieveAPIView):
     queryset = User.objects.all()
     serializer_class = UserSerializer
+
+
+class ViewSetVoice(viewsets.ModelViewSet):
+    queryset = Voice.objects.all()
+    serializer_class = VoiceSerializer
+
+    def evaluating_ideas(self, request, message_type):
+        pk = request.data.get('idea')
+        choice = request.data.get('choice')
+        idea = Idea.objects.get(pk=pk)
+        if message_type == "post":
+            if choice == "true":
+                idea.like += 1
+            else:
+                idea.dislike += 1
+        else:
+            if choice == "true":
+                idea.like += 1
+                idea.dislike -= 1
+            else:
+                idea.like -= 1
+                idea.dislike += 1
+        idea.save()
+
+    def create(self, request, *args, **kwargs):
+        serializer = VoiceSerializer(data=request.data)
+        serializer.is_valid(raise_exception=True)
+        serializer.save()
+        self.evaluating_ideas(request, "post")
+
+        return Response(serializer.data)
+
+    def update(self, request, pk=None):
+        try:
+            instance = Voice.objects.get(pk=pk)
+        except:
+            return Response({'error': 'Not found.'})
+        self.evaluating_ideas(request, "put")
+        serializer = VoiceSerializer(data=request.data, instance=instance)
+        serializer.is_valid(raise_exception=True)
+        serializer.save()
+
+        return Response(serializer.data)
+
+    def destroy(self, request, *args, **kwargs):
+        print(request)
+        pk = kwargs.get("pk", None)
+        try:
+            voice = Voice.objects.get(pk=pk)
+        except Voice.DoesNotExist:
+            return Response({'error': 'Voice not found.'})
+
+        idea = Idea.objects.get(pk=voice.idea.id)
+        if voice.choice == "true":
+            idea.like -= 1
+        else:
+            idea.dislike -= 1
+        idea.save()
+
+        voice.delete()
+
+        return Response({'Destroy': f"{pk} voice"})
 
 
 @receiver(post_save, sender=User)

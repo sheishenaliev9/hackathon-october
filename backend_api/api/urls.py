@@ -8,6 +8,7 @@ router.register(r'profiles', views.ViewSetProfile)
 router.register(r'ideas', views.ViewSetIdea)
 router.register(r'comments', views.ViewSetComment)
 router.register(r'categories', views.ViewSetCategory)
+router.register(r'voices', views.ViewSetVoice)
 
 urlpatterns = [
     path('', include(router.urls)),

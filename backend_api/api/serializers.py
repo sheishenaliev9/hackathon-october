@@ -1,7 +1,7 @@
 from rest_framework import serializers
 from django.contrib.auth.models import User
 
-from .models import Profile, Idea, Comment, Category
+from .models import Profile, Idea, Comment, Category, Voice
 
 
 class ProfileSerializer(serializers.ModelSerializer):
@@ -39,4 +39,10 @@ class IdeaSerializer(serializers.ModelSerializer):
 
     class Meta:
         model = Idea
+        fields = '__all__'
+
+
+class VoiceSerializer(serializers.ModelSerializer):
+    class Meta:
+        model = Voice
         fields = '__all__'
