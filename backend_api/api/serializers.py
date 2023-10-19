@@ -1,13 +1,7 @@
 from rest_framework import serializers
 from django.contrib.auth.models import User
 
-from .models import Profile, Idea
-
-
-class IdeaSerializer(serializers.ModelSerializer):
-    class Meta:
-        model = Idea
-        fields = '__all__'
+from .models import Profile, Idea, Comment, Category
 
 
 class ProfileSerializer(serializers.ModelSerializer):
@@ -23,3 +17,26 @@ class UserSerializer(serializers.ModelSerializer):
         model = User
         fields = ['id', 'username', 'email', 'profile']
         ref_name = 'YourUniqueRefName'
+
+
+class CommentSerializer(serializers.ModelSerializer):
+    userprofile = UserSerializer(read_only=True, source='user')  # Установите source='user'
+
+    class Meta:
+        model = Comment
+        fields = '__all__'
+
+
+class CategorySerializer(serializers.ModelSerializer):
+    class Meta:
+        model = Category
+        fields = '__all__'
+
+
+class IdeaSerializer(serializers.ModelSerializer):
+    comments = CommentSerializer(many=True, read_only=True)  # Добавьте это поле для комментариев
+    category = CategorySerializer(read_only=True)
+
+    class Meta:
+        model = Idea
+        fields = '__all__'
