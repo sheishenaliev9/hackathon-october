@@ -20,7 +20,7 @@ class UserSerializer(serializers.ModelSerializer):
 
 
 class CommentSerializer(serializers.ModelSerializer):
-    userprofile = UserSerializer(read_only=True, source='user')  # Установите source='user'
+    userprofile = UserSerializer(read_only=True, source='user')
 
     class Meta:
         model = Comment
@@ -34,8 +34,8 @@ class CategorySerializer(serializers.ModelSerializer):
 
 
 class IdeaSerializer(serializers.ModelSerializer):
-    comments = CommentSerializer(many=True, read_only=True)  # Добавьте это поле для комментариев
-    category = CategorySerializer(read_only=True)
+    comments = CommentSerializer(many=True, read_only=True)
+    category = CategorySerializer(read_only=True, source='cat')
 
     class Meta:
         model = Idea

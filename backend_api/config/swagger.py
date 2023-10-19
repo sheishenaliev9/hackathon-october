@@ -5,7 +5,7 @@ from drf_yasg import openapi
 schema_view = get_schema_view(
    openapi.Info(
       title="Snippets API",
-      default_version='v1.3',
+      default_version='v2.0.1',
       description="",
       terms_of_service="",
       contact=openapi.Contact(email="#"),

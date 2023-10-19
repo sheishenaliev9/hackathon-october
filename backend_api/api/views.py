@@ -24,25 +24,6 @@ class ViewSetComment(viewsets.ModelViewSet):
     queryset = Comment.objects.all()
     serializer_class = CommentSerializer
 
-    # def retrieve(self, request, pk=None):
-    #     idea = self.get_object()
-    #     idea_serializer = IdeaSerializer(idea)
-    #
-    #     # Получить комментарии для идеи
-    #     comments = Comment.objects.filter(idea=idea)
-    #     comment_serializer = CommentSerializer(comments, many=True)
-    #
-    #     # Получить категорию для идеи
-    #     category = idea.cat
-    #     category_serializer = CategorySerializer(category)
-    #
-    #     # Добавить комментарии и категорию в данные идеи
-    #     idea_data = idea_serializer.data
-    #     idea_data['comments'] = comment_serializer.data
-    #     idea_data['category'] = category_serializer.data
-    #
-    #     return Response(idea_data)
-
 
 class ViewSetIdea(viewsets.ModelViewSet):
     queryset = Idea.objects.all().order_by('-views', '-create')
