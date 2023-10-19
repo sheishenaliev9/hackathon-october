@@ -11,6 +11,6 @@ class ViewSetProfile(viewsets.ModelViewSet):
     # permission_classes = (IsAuthenticated, )
 
 class ViewSetIdea(viewsets.ModelViewSet):
-    queryset = Idea.objects.all()
+    queryset = Idea.objects.all().order_by('-views', '-create')
     serializer_class = IdeaSerializer
     # permission_classes = (IsAuthenticated, )
