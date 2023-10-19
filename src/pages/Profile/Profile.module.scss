@@ -1,0 +1,50 @@
+.profile {
+  width: 100%;
+  margin: 110px 0;
+  .profile__about {
+    width: 60%;
+    margin: 0 auto;
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    gap: 30px;
+
+    .profile__image {
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      img {
+        width: 30%;
+      }
+
+      svg {
+        font-size: 66px;
+      }
+    }
+
+    .profile__title {
+      width: 100%;
+      display: flex;
+      flex-direction: column;
+      align-items: center;
+      gap: 40px;
+
+      input {
+        width: 60%;
+        outline: none;
+        border: none;
+        border-bottom: 1px solid;
+        font-weight: 700;
+
+        &:disabled {
+          background-color: transparent;
+        }
+      }
+
+      label {
+        font-family: sans-serif;
+        color: #4a4e69;
+      }
+    }
+  }
+}

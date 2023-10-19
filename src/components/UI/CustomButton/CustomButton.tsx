@@ -1,14 +1,19 @@
-import styles from './CustomButton.module.scss';
+import { FormEvent } from "react";
+import styles from "./CustomButton.module.scss";
 
 interface CustomButtonProps {
-    children: React.ReactNode;
-    type?: "submit"
- }
+  children: React.ReactNode;
+  type?: "submit";
+  onClick?: (e: FormEvent<HTMLButtonElement>) => void;
+}
 
-export const CustomButton: React.FC<CustomButtonProps> = ({children, ...props}) => {
+export const CustomButton: React.FC<CustomButtonProps> = ({
+  children,
+  ...props
+}) => {
   return (
     <button {...props} className={styles.customButton}>
-        {children}
+      {children}
     </button>
-  )
-}
+  );
+};

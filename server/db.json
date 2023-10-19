@@ -59,6 +59,20 @@
       "email": "chtoto@mail.ru",
       "password": "aidarqwerty",
       "id": 1
+    },
+    {
+      "username": "testauth",
+      "email": "chtoto@mail.ru",
+      "password": "e21e21e121d",
+      "id": 2
+    },
+    {
+      "username": "testauth",
+      "email": "dsa",
+      "password": "e21e21e121d",
+      "id": 3,
+      "description": "dsa",
+      "phone": "dsa"
     }
   ]
 }

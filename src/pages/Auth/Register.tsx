@@ -2,17 +2,11 @@ import { useAppDispatch } from "../../hooks";
 import { addUser } from "../../store";
 import { useForm, SubmitHandler } from "react-hook-form";
 import { CustomButton } from "../../components";
-import { NavLink } from "react-router-dom";
+import { NavLink, useNavigate } from "react-router-dom";
 import { AiFillEye, AiFillEyeInvisible } from "react-icons/ai";
-import styles from "./Auth.module.scss";
 import { useState } from "react";
-
-type Inputs = {
-  email: string;
-  username: string;
-  password: string;
-  confirmPassword: string;
-};
+import styles from "./Auth.module.scss";
+import { Inputs } from "../../types/index.type";
 
 export const Auth = () => {
   const [eye, setEye] = useState(false);
@@ -23,10 +17,24 @@ export const Auth = () => {
   } = useForm<Inputs>();
 
   const dispatch = useAppDispatch();
+  const navigate = useNavigate();
 
-  const onSubmit: SubmitHandler<Inputs> = (data) => {
-    dispatch(addUser(data));
+  const onSubmit: SubmitHandler<Inputs> = async (data) => {
+    try {
+      const actionResult = await dispatch(addUser(data));
+      
+      const user = actionResult.payload;
+  
+      if (user && user.id) {
+        navigate(`/profile/${user.id}`);
+      } else {
+        console.error("Не удалось получить ID пользователя после регистрации");
+      }
+    } catch (error) {
+      console.error("Ошибка при регистрации", error);
+    }
   };
+  
 
   return (
     <div className={styles.auth}>
