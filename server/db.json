@@ -73,6 +73,31 @@
       "id": 3,
       "description": "dsa",
       "phone": "dsa"
+    },
+    {
+      "username": "testauth",
+      "password": "e21e21e121d",
+      "id": 4
+    },
+    {
+      "username": "testauth",
+      "password": "e21e21e121d",
+      "id": 5
+    },
+    {
+      "username": "testauth",
+      "password": "e297f7cfcce703fcb6c01c6733c580dee7ed11a9",
+      "id": 6
+    },
+    {
+      "username": "testauth",
+      "password": "dsadasda",
+      "id": 7
+    },
+    {
+      "username": "testauth",
+      "password": "32132132131",
+      "id": 8
     }
   ]
 }

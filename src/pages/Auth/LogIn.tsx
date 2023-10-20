@@ -2,28 +2,34 @@ import { useAppDispatch } from "../../hooks";
 // import { loginUser } from "../../store";
 import { useForm, SubmitHandler } from "react-hook-form";
 import { CustomButton } from "../../components";
-import { NavLink } from "react-router-dom";
+import { NavLink, useNavigate } from "react-router-dom";
 import { AiFillEye, AiFillEyeInvisible } from "react-icons/ai";
 import styles from "./Auth.module.scss";
 import { useState } from "react";
-
-type Inputs = {
-  username: string;
-  password: string;
-};
+import { loginUser } from "../../store";
+import { Inputs } from "../../types/index.type";
 
 export const Login = () => {
   const [eye, setEye] = useState(false);
-  const {
-    register,
-    handleSubmit,
-    formState: { errors },
-  } = useForm<Inputs>();
+  const { register, handleSubmit } = useForm<Inputs>();
 
+  const navigate = useNavigate();
   const dispatch = useAppDispatch();
 
-  const onSubmit: SubmitHandler<Inputs> = (data) => {
-    
+  const onSubmit: SubmitHandler<Inputs> = async (data) => {
+    try {
+      const actionResult = await dispatch(loginUser(data));
+
+      const user = actionResult.payload;
+
+      if (user && user.id) {
+        navigate(`/profile/${user.id}`);
+      } else {
+        console.error("Не удалось получить ID пользователя после входа");
+      }
+    } catch (error) {
+      console.error("Ошибка при входе", error);
+    }
   };
 
   return (

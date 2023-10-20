@@ -1,16 +1,18 @@
-import { useParams } from "react-router";
+import { useNavigate, useParams } from "react-router";
 import styles from "./Profile.module.scss";
 import { FormEvent, useEffect, useState } from "react";
 import { useAppDispatch, useAppSelector } from "../../hooks";
-import { EditUserProfile, getUser } from "../../store";
+import { EditUserProfile, getUser, logOut } from "../../store";
 import { AiOutlineUser } from "react-icons/ai";
 import { CustomButton } from "../../components";
 import { SubmitHandler, useForm } from "react-hook-form";
-import { ProfileType } from "../../types/index.type";
+import { ProfileType, UserType } from "../../types/index.type";
+import { Link } from "react-router-dom";
 
 export const Profile = () => {
   const [isDisabled, setIsDisabled] = useState(true);
   const { id } = useParams();
+  const navigate = useNavigate();
   const dispatch = useAppDispatch();
   const { user } = useAppSelector((state) => state.users);
 
@@ -31,13 +33,17 @@ export const Profile = () => {
     e.preventDefault();
     setIsDisabled(!isDisabled);
 
-    // Устанавливаем значения по умолчанию при включении редактирования
     if (!isDisabled) {
       setValue("description", description);
       setValue("phone", phoneNumber);
       setValue("email", email);
     }
   };
+
+  const handleLogOut = () => {
+    dispatch(logOut({} as UserType));
+    navigate('/login');
+  }
 
   useEffect(() => {
     dispatch(getUser(Number(id)));
@@ -56,7 +62,7 @@ export const Profile = () => {
           <input
             name="description"
             type="text"
-            value={description}
+            defaultValue={description}
             disabled={isDisabled}
             placeholder="description"
             onChange={(e) => setValue("description", e.target.value)}
@@ -66,7 +72,7 @@ export const Profile = () => {
             name="phone"
             type="text"
             placeholder="Phone number"
-            value={phoneNumber}
+            defaultValue={phoneNumber}
             disabled={isDisabled}
             onChange={(e) => setValue("phone", e.target.value)}
           />
@@ -75,16 +81,27 @@ export const Profile = () => {
             name="email"
             type="text"
             placeholder="Email"
-            value={email}
+            defaultValue={email}
             disabled={isDisabled}
             onChange={(e) => setValue("email", e.target.value)}
           />
-          {isDisabled ? (
-            <CustomButton onClick={handleChange}>Изменить</CustomButton>
-          ) : (
-            <CustomButton type="submit">Сохранить</CustomButton>
-          )}
+          <div className={styles.profile__actions}>
+            {isDisabled ? (
+              <CustomButton onClick={handleChange}>Изменить</CustomButton>
+            ) : (
+              <CustomButton type="submit" onClick={handleChange}>
+                Сохранить
+              </CustomButton>
+            )}
+            <button className={styles.profile__actions__logout} onClick={handleLogOut}>
+              Выйти
+            </button>
+          </div>
         </form>
+
+        <Link to="/createidea">
+          crate
+        </Link>
       </div>
     </div>
   );

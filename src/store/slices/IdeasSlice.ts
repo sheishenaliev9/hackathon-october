@@ -21,7 +21,7 @@ const IdeasSlice = createSlice({
       state.ideas = action.payload;
     },
     [getIdeas.rejected.type]: (state, action: PayloadAction<Error>) => {
-      console.error("Failed to get posts:", action.payload.message);
+      console.error("Failed to get ideas:", action.payload.message);
     },
     [getIdea.fulfilled.type]: (state, action: PayloadAction<IdeasType>) => {
       state.idea = action.payload;

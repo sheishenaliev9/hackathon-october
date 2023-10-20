@@ -1,7 +1,15 @@
 import { Route, Routes } from "react-router";
 import "./App.scss";
 import { Layout } from "./layout";
-import { Auth, Home, Ideas, Login, OneIdea, Profile } from "./pages";
+import {
+  Auth,
+  CreateIdea,
+  Home,
+  Ideas,
+  Login,
+  OneIdea,
+  Profile,
+} from "./pages";
 
 function App() {
   return (
@@ -14,6 +22,7 @@ function App() {
           <Route path="/login" element={<Login />} />
           <Route path="/profile/:id" element={<Profile />} />
           <Route path="/ideas/:id" element={<OneIdea />} />
+          <Route path="/createidea" element={<CreateIdea />} />
         </Route>
       </Routes>
     </div>

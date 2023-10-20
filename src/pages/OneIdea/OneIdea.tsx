@@ -15,6 +15,7 @@ export const OneIdea = () => {
 
   return (
     <div className={styles.idea}>
+      <div className={styles.idea__inner}>
       <div className={styles.idea__title}>
         <img src={photo_1} alt="photo" />
         <h2>{title}</h2>
@@ -23,6 +24,7 @@ export const OneIdea = () => {
       <div className={styles.idea__content}>
         <p>{content}</p>
         <span>{views} просмотров</span>
+      </div>
       </div>
     </div>
   );

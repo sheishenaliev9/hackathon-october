@@ -1,12 +1,15 @@
 import { Link } from "react-router-dom";
 import logo from "../../assets/idea-logo.svg";
 import styles from "./Header.module.scss";
-import { FaUserAlt } from 'react-icons/fa';
+import { FaUserAlt } from "react-icons/fa";
 import { useAppSelector } from "../../hooks";
 
-
 export const Header = () => {
-  const { user } = useAppSelector(state => state.users);
+  const { user } = useAppSelector((state) => state.users);
+
+  const isEmptyObject = (obj: object) => {
+    return Object.keys(obj).length === 0 && obj.constructor === Object;
+  };
 
   return (
     <header className={styles.header}>
@@ -24,7 +27,9 @@ export const Header = () => {
           </nav>
 
           <div className={styles.registration}>
-            <Link to={user ? `/profile/${user.id}` : '/register'}>
+            <Link
+              to={isEmptyObject(user) ? "/register" : `/profile/${user.id}`}
+            >
               <FaUserAlt className={styles.profile_icon} />
             </Link>
           </div>

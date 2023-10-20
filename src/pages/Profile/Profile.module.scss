@@ -13,6 +13,7 @@
       display: flex;
       align-items: center;
       justify-content: center;
+      flex-direction: column;
       img {
         width: 30%;
       }
@@ -35,6 +36,8 @@
         border: none;
         border-bottom: 1px solid;
         font-weight: 700;
+        color: #000;
+        font-size: 16px;
 
         &:disabled {
           background-color: transparent;
@@ -44,6 +47,30 @@
       label {
         font-family: sans-serif;
         color: #4a4e69;
+      }
+
+      .profile__actions {
+        display: flex;
+        align-items: center;
+        gap: 20px;
+
+        .profile__actions__logout {
+          border: none;
+          background-color: rgb(207, 89, 76);
+          color: #fff;
+          padding: 7px 15px;
+          border-radius: 5px;
+          font-size: 15px;
+          letter-spacing: 2px;
+          transition: 0.3s;
+          border: 2px solid rgb(207, 89, 76);
+          outline: none;
+
+          &:hover {
+            background-color: transparent;
+            color: #4a4e69;
+          }
+        }
       }
     }
   }
