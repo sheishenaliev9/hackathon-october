@@ -1,15 +1,17 @@
 import { createAsyncThunk } from "@reduxjs/toolkit";
 import axios, { AxiosError } from "axios";
-import { Inputs } from "../../types/index.type";
+import { Inputs, ProfileType } from "../../types/index.type";
 
-const AUTH_URL = "http://192.168.88.59:8000/auth/users";
+const AUTH_URL = "http://192.168.88.59:8000/auth";
+const USERS_URL = "http://192.168.88.59:8000/api/v1"
 
-const TOKEN = "e297f7cfcce703fcb6c01c6733c580dee7ed11a9";
+const TOKEN = "ec3ed3752119f844ec967c751a339e961b576cb1";
+
 export const getUsers = createAsyncThunk(
   "getUsers",
   async (_, { rejectWithValue }) => {
     try {
-      const { data } = await axios.get(`${AUTH_URL}`, {
+      const { data } = await axios.get(`${AUTH_URL}/users/`, {
         headers: {
           Authorization: `token ${TOKEN}`,
         },
@@ -30,7 +32,7 @@ export const getUser = createAsyncThunk(
   "getUser",
   async (id: number, { rejectWithValue }) => {
     try {
-      const { data } = await axios.get(`${AUTH_URL}/${id}/`, {
+      const { data } = await axios.get(`${USERS_URL}/userprofile/${id}/`, {
         headers: {
           Authorization: `token ${TOKEN}`,
         },
@@ -51,7 +53,7 @@ export const addUser = createAsyncThunk(
   "addUser",
   async (user: Inputs, { rejectWithValue }) => {
     try {
-      const { data } = await axios.post(`${AUTH_URL}`, user, {
+      const { data } = await axios.post(`${AUTH_URL}/users/`, user, {
         headers: {
           Authorization: `token ${TOKEN}`,
         },
@@ -69,9 +71,9 @@ export const addUser = createAsyncThunk(
 
 export const EditUserProfile = createAsyncThunk(
   "EditUserProfile",
-  async ({ id, data }: { id: number; data: Inputs }, { rejectWithValue }) => {
+  async ({ id, data }: { id: number; data: ProfileType }, { rejectWithValue }) => {
     try {
-      const response = await axios.patch(`${AUTH_URL}/${id}`, data, {
+      const response = await axios.put(`${USERS_URL}/profiles/${id}/`, data, {
         headers: {
           Authorization: `token ${TOKEN}`,
         },
@@ -91,7 +93,7 @@ export const loginUser = createAsyncThunk(
   "loginUser",
   async (user: Inputs, { rejectWithValue }) => {
     try {
-      const { data } = await axios.post(`${AUTH_URL}`, user, {
+      const { data } = await axios.post(`${AUTH_URL}/token/login/`, user, {
         headers: {
           Authorization: `token ${TOKEN}`,
         },

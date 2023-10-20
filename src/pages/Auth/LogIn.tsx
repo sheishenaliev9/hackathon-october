@@ -1,5 +1,4 @@
 import { useAppDispatch } from "../../hooks";
-// import { loginUser } from "../../store";
 import { useForm, SubmitHandler } from "react-hook-form";
 import { CustomButton } from "../../components";
 import { NavLink, useNavigate } from "react-router-dom";
@@ -19,11 +18,12 @@ export const Login = () => {
   const onSubmit: SubmitHandler<Inputs> = async (data) => {
     try {
       const actionResult = await dispatch(loginUser(data));
-
       const user = actionResult.payload;
 
+      console.log(user);
+
       if (user && user.id) {
-        navigate(`/profile/${user.id}`);
+        navigate(`/profile/${Number(user.id)}`);
       } else {
         console.error("Не удалось получить ID пользователя после входа");
       }

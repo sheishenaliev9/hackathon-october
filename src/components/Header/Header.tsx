@@ -7,9 +7,9 @@ import { useAppSelector } from "../../hooks";
 export const Header = () => {
   const { user } = useAppSelector((state) => state.users);
 
-  const isEmptyObject = (obj: object) => {
-    return Object.keys(obj).length === 0 && obj.constructor === Object;
-  };
+  // const isEmptyObject = (obj: object | null | undefined) => {
+  //   return obj && typeof obj === "object" && Object.keys(obj).length === 0;
+  // };
 
   return (
     <header className={styles.header}>
@@ -27,9 +27,7 @@ export const Header = () => {
           </nav>
 
           <div className={styles.registration}>
-            <Link
-              to={isEmptyObject(user) ? "/register" : `/profile/${user.id}`}
-            >
+            <Link to={user && user.id ? `/profile/${user.id}` : "/register"}>
               <FaUserAlt className={styles.profile_icon} />
             </Link>
           </div>

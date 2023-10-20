@@ -1,6 +1,6 @@
-import { createAction, createAsyncThunk } from "@reduxjs/toolkit";
+import { createAsyncThunk } from "@reduxjs/toolkit";
 import axios, { AxiosError } from "axios";
-import { IdeasType } from "../../types/index.type";
+import { IdeasType, createIdeaType } from "../../types/index.type";
 
 const IDEAS_URL = "http://192.168.88.59:8000/api/v1";
 const TOKEN = "e297f7cfcce703fcb6c01c6733c580dee7ed11a9";
@@ -14,6 +14,28 @@ export const getIdeas = createAsyncThunk(
           Authorization: `token ${TOKEN}`,
         },
       });
+      return data;
+    } catch (error) {
+      if (axios.isAxiosError(error)) {
+        const axiosError = error as AxiosError;
+        return rejectWithValue(axiosError.message ?? "An error occurred");
+      } else {
+        return rejectWithValue("An error occurred");
+      }
+    }
+  }
+);
+
+export const createIdea = createAsyncThunk(
+  "createIdea",
+  async (idea: createIdeaType, { rejectWithValue }) => {
+    try {
+      const { data } = await axios.post(`${IDEAS_URL}/ideas/`, idea, {
+        headers: {
+          Authorization: `token ${TOKEN}`,
+        },
+      });
+
       return data;
     } catch (error) {
       if (axios.isAxiosError(error)) {
@@ -47,16 +69,22 @@ export const getIdea = createAsyncThunk(
   }
 );
 
-
 export const choiceVoice = createAsyncThunk(
   "choiceVoice",
-  async ({ id, values }: { id: number; values: IdeasType }, { rejectWithValue }) => {
+  async (
+    { id, values }: { id: number; values: IdeasType },
+    { rejectWithValue }
+  ) => {
     try {
-      const { data } = await axios.put(`${IDEAS_URL}/voices/${id}/`, { values }, {
-        headers: {
-          Authorization: `token ${TOKEN}`,
-        },
-      });
+      const { data } = await axios.put(
+        `${IDEAS_URL}/voices/${id}/`,
+        { values },
+        {
+          headers: {
+            Authorization: `token ${TOKEN}`,
+          },
+        }
+      );
       return data;
     } catch (error) {
       if (axios.isAxiosError(error)) {

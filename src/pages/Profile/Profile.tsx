@@ -18,32 +18,49 @@ export const Profile = () => {
 
   const { handleSubmit, setValue } = useForm<ProfileType>();
 
-  const onSubmit: SubmitHandler<ProfileType> = (formData) => {
-    dispatch(EditUserProfile({ id: Number(id), data: formData }));
-    console.log(formData);
+  const onSubmit: SubmitHandler<ProfileType> = async (formData) => {
+    const updatedProfile = {
+      ...(user?.profile || {}),
+      ...formData,
+    };
+
+    const { id, email, ...profileWithoutId } = updatedProfile;
+
+    await dispatch(
+      EditUserProfile({
+        id: Number(id),
+        data: {
+          profile: profileWithoutId,
+          user: user?.profile?.user,
+          email: email || "", // если email не определен, устанавливаем значение по умолчанию
+        },
+      })
+    );
+    console.log(profileWithoutId);
   };
 
-  const username = user?.username ?? "Name";
-  const email = user?.email ?? "Email";
-  const phoneNumber = user?.profile?.phone ?? "Phone";
-  const description = user?.profile?.description ?? "Description";
-  const avatar = user?.profile?.avatar ?? <AiOutlineUser />;
+  // const username = user?.username ?? "Name";
+  // const email = user?.email ?? "Email";
+  // const phoneNumber = user?.profile?.phone ?? "Phone";
+  // const description = user?.profile?.description ?? "Description";
+  // const avatar = user?.profile?.avatar ?? <AiOutlineUser />;
 
   const handleChange = (e: FormEvent<HTMLButtonElement>) => {
     e.preventDefault();
     setIsDisabled(!isDisabled);
 
     if (!isDisabled) {
-      setValue("description", description);
-      setValue("phone", phoneNumber);
-      setValue("email", email);
+      setValue("description", user?.profile?.description);
+      setValue("phone", user?.profile?.phone);
+      setValue("email", user?.profile?.email);
+      setValue("user", user?.profile?.user);
     }
   };
 
   const handleLogOut = () => {
     dispatch(logOut({} as UserType));
-    navigate('/login');
-  }
+    navigate("/login");
+  };
 
   useEffect(() => {
     dispatch(getUser(Number(id)));
@@ -52,17 +69,19 @@ export const Profile = () => {
   return (
     <div className={styles.profile}>
       <div className={styles.profile__about}>
-        <div className={styles.profile__image}>{avatar}</div>
+        <div className={styles.profile__image}>
+          {!user?.profile?.avatar ? <AiOutlineUser /> : user?.profile?.avatar}
+        </div>
         <form
           className={styles.profile__title}
           onSubmit={handleSubmit(onSubmit)}
         >
-          <h2>Name: {username}</h2>
+          <h2>Name: {user.username}</h2>
           <label htmlFor="description">Description</label>
           <input
             name="description"
             type="text"
-            defaultValue={description}
+            defaultValue={user?.profile?.description}
             disabled={isDisabled}
             placeholder="description"
             onChange={(e) => setValue("description", e.target.value)}
@@ -72,7 +91,7 @@ export const Profile = () => {
             name="phone"
             type="text"
             placeholder="Phone number"
-            defaultValue={phoneNumber}
+            defaultValue={user?.profile?.phone}
             disabled={isDisabled}
             onChange={(e) => setValue("phone", e.target.value)}
           />
@@ -81,7 +100,7 @@ export const Profile = () => {
             name="email"
             type="text"
             placeholder="Email"
-            defaultValue={email}
+            defaultValue={user?.profile?.email}
             disabled={isDisabled}
             onChange={(e) => setValue("email", e.target.value)}
           />
@@ -89,19 +108,18 @@ export const Profile = () => {
             {isDisabled ? (
               <CustomButton onClick={handleChange}>Изменить</CustomButton>
             ) : (
-              <CustomButton type="submit" onClick={handleChange}>
-                Сохранить
-              </CustomButton>
+              <CustomButton type="submit">Сохранить</CustomButton>
             )}
-            <button className={styles.profile__actions__logout} onClick={handleLogOut}>
+            <button
+              className={styles.profile__actions__logout}
+              onClick={handleLogOut}
+            >
               Выйти
             </button>
           </div>
         </form>
 
-        <Link to="/createidea">
-          crate
-        </Link>
+        <Link to="/createidea">Создать идею</Link>
       </div>
     </div>
   );

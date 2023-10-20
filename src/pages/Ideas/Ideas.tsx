@@ -7,6 +7,7 @@ import {
   AiOutlineLike,
   AiOutlineDislike,
   AiOutlineArrowRight,
+  AiOutlineQuestionCircle,
 } from "react-icons/ai";
 import styles from "./Ideas.module.scss";
 
@@ -66,7 +67,7 @@ interface IdeaProps {
 }
 
 export const IdeaItem: React.FC<IdeaProps> = ({ idea }) => {
-  const { title, photo_1, views, id, like, dislike, voice } = idea;
+  const { title, photo, views, id, like, dislike, voice } = idea;
 
   const dispatch = useAppDispatch();
 
@@ -77,7 +78,7 @@ export const IdeaItem: React.FC<IdeaProps> = ({ idea }) => {
   return (
     <div className={styles.idea}>
       <div className={styles.idea__image}>
-        {photo_1 && <img src={photo_1} alt="" />}
+        {photo ? <img src={photo} alt="" /> : <AiOutlineQuestionCircle />}
       </div>
 
       <div className={styles.idea__content}>

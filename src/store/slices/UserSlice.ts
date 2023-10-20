@@ -16,6 +16,7 @@ const initialState: UserState = {
   isLoggedIn: false,
 };
 
+
 const UserSlice = createSlice({
   name: "UserSlice",
   initialState,
