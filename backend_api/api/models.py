@@ -17,10 +17,7 @@ class Profile(models.Model):
 class Idea(models.Model):
     title = models.CharField(max_length=150)
     content = models.TextField(max_length=500)
-    photo_1 = models.ImageField(upload_to='idea/')
-    photo_2 = models.ImageField(upload_to='idea/', blank=True, null=True)
-    photo_3 = models.ImageField(upload_to='idea/', blank=True, null=True)
-    photo_4 = models.ImageField(upload_to='idea/', blank=True, null=True)
+    photo = models.ImageField(upload_to='idea/')
     create = models.DateTimeField(auto_now_add=True)
     update = models.DateTimeField(default=datetime.now())
     like = models.IntegerField(default=0)

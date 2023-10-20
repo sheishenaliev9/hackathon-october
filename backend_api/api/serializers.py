@@ -7,7 +7,7 @@ from .models import Profile, Idea, Comment, Category, Voice
 
 class ProfileSerializer(serializers.ModelSerializer):
     avatar = serializers.ImageField(required=False)
-    
+
     class Meta:
         model = Profile
         fields = '__all__'
@@ -46,7 +46,7 @@ class IdeaSerializer(serializers.ModelSerializer):
     comments = CommentSerializer(many=True, read_only=True, source='comment')
     category = CategorySerializer(read_only=True, source='cat')
     voice = VoiceSerializer(read_only=True)
-    photo_1 = serializers.ImageField(required=False)
+    photo = serializers.ImageField(required=False)
 
     class Meta:
         model = Idea

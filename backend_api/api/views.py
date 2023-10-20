@@ -67,12 +67,12 @@ class ViewSetVoice(viewsets.ModelViewSet):
         choice = request.data.get('choice')
         idea = Idea.objects.get(pk=pk)
         if message_type == "post":
-            if choice == "true":
+            if choice == True:
                 idea.like += 1
             else:
                 idea.dislike += 1
         else:
-            if choice == "true":
+            if choice == True:
                 idea.like += 1
                 idea.dislike -= 1
             else:
