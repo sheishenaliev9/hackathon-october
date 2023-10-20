@@ -12,28 +12,31 @@ from .serializers import ProfileSerializer, IdeaSerializer, UserSerializer, Comm
 class ViewSetProfile(viewsets.ModelViewSet):
     queryset = Profile.objects.all()
     serializer_class = ProfileSerializer
-    # permission_classes = (IsAuthenticated, )
+    permission_classes = (IsAuthenticated, )
 
 
 class ViewSetCategory(viewsets.ModelViewSet):
     queryset = Category.objects.all()
     serializer_class = CategorySerializer
+    permission_classes = (IsAuthenticated, )
 
 
 class ViewSetComment(viewsets.ModelViewSet):
     queryset = Comment.objects.all()
     serializer_class = CommentSerializer
+    permission_classes = (IsAuthenticated, )
 
 
 class ViewSetIdea(viewsets.ModelViewSet):
     queryset = Idea.objects.all().order_by('-views', '-create', '-like')
     serializer_class = IdeaSerializer
+    permission_classes = (IsAuthenticated, )
 
     def retrieve(self, request, pk=None):
         idea = self.get_object()
         idea.views += 1  # Increase the views value by 1
         idea.save()  # Saving the Idea object with updated views
-        idea_serializer = IdeaSerializer(idea)
+        idea_serializer = IdeaSerializer(idea, context={'request': request})
 
         comments = Comment.objects.filter(idea=idea)
         comment_serializer = CommentSerializer(comments, many=True)
@@ -51,11 +54,13 @@ class ViewSetIdea(viewsets.ModelViewSet):
 class UserDetail(generics.RetrieveAPIView):
     queryset = User.objects.all()
     serializer_class = UserSerializer
+    permission_classes = (IsAuthenticated, )
 
 
 class ViewSetVoice(viewsets.ModelViewSet):
     queryset = Voice.objects.all()
     serializer_class = VoiceSerializer
+    permission_classes = (IsAuthenticated, )
 
     def evaluating_ideas(self, request, message_type):
         pk = request.data.get('idea')

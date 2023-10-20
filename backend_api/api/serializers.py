@@ -34,17 +34,17 @@ class CategorySerializer(serializers.ModelSerializer):
         fields = '__all__'
 
 
-class IdeaSerializer(serializers.ModelSerializer):
-    update = serializers.DateTimeField(default=timezone.now)
-    comments = CommentSerializer(many=True, read_only=True)
-    category = CategorySerializer(read_only=True, source='cat')
-
-    class Meta:
-        model = Idea
-        fields = '__all__'
-
-
 class VoiceSerializer(serializers.ModelSerializer):
     class Meta:
         model = Voice
+        fields = '__all__'
+
+class IdeaSerializer(serializers.ModelSerializer):
+    update = serializers.DateTimeField(default=timezone.now)
+    comments = CommentSerializer(many=True, read_only=True, source='comment')
+    category = CategorySerializer(read_only=True, source='cat')
+    voice = VoiceSerializer(read_only=True)
+
+    class Meta:
+        model = Idea
         fields = '__all__'
