@@ -15,9 +15,9 @@ class Profile(models.Model):
 
 
 class Idea(models.Model):
-    title = models.CharField(max_length=150)
-    content = models.TextField(max_length=500)
-    photo = models.ImageField(upload_to='idea/')
+    title = models.CharField(max_length=150, help_text='Write here title of your idea')
+    content = models.TextField(max_length=500, help_text='Write here content of your idea')
+    photo = models.ImageField(upload_to='idea/', help_text='Put here image of your idea')
     create = models.DateTimeField(auto_now_add=True)
     update = models.DateTimeField(default=datetime.now())
     like = models.IntegerField(default=0)
@@ -33,7 +33,7 @@ class Idea(models.Model):
 class Comment(models.Model):
     idea = models.ForeignKey(Idea, on_delete=models.CASCADE)
     user = models.ForeignKey(User, on_delete=models.CASCADE)
-    content = models.TextField()
+    content = models.TextField(help_text='Write your comment on idea')
     created_at = models.DateTimeField(auto_now_add=True)
 
     def __str__(self):
