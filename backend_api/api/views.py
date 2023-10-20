@@ -39,7 +39,7 @@ class ViewSetIdea(viewsets.ModelViewSet):
         idea_serializer = IdeaSerializer(idea, context={'request': request})
 
         comments = Comment.objects.filter(idea=idea)
-        comment_serializer = CommentSerializer(comments, many=True)
+        comment_serializer = CommentSerializer(comments, many=True, context={'request': request})
 
         category = idea.cat
         category_serializer = CategorySerializer(category)
@@ -60,48 +60,52 @@ class UserDetail(generics.RetrieveAPIView):
 class ViewSetVoice(viewsets.ModelViewSet):
     queryset = Voice.objects.all()
     serializer_class = VoiceSerializer
-    permission_classes = (IsAuthenticated, )
+    permission_classes = (IsAuthenticated,)
 
     def evaluating_ideas(self, request, message_type):
-        pk = request.data.get('idea')
-        choice = request.data.get('choice')
-        idea = Idea.objects.get(pk=pk)
+        # A custom function for evaluating ideas.
+        pk = request.data.get('idea')  # Getting the idea ID from the request.
+        choice = request.data.get('choice')  # Getting the choice (like or dislike) from the request.
+        idea = Idea.objects.get(pk=pk)  # Getting the idea object based on the ID.
+
         if message_type == "post":
+            # If the message type is "post," update the like and dislike counts of the idea.
             if choice == True:
                 idea.like += 1
             else:
                 idea.dislike += 1
         else:
+            # Otherwise (message type is "put"), update the counts considering the previous choice.
             if choice == True:
                 idea.like += 1
                 idea.dislike -= 1
             else:
                 idea.like -= 1
                 idea.dislike += 1
-        idea.save()
+        idea.save()  # Save the changes to the idea.
 
     def create(self, request, *args, **kwargs):
+        # Method for creating a new Voice record.
         serializer = VoiceSerializer(data=request.data)
         serializer.is_valid(raise_exception=True)
-        serializer.save()
-        self.evaluating_ideas(request, "post")
-
+        serializer.save()  # Save the new record.
+        self.evaluating_ideas(request, "post")  # Call evaluating_ideas to update the idea.
         return Response(serializer.data)
 
     def update(self, request, pk=None):
+        # Method for updating a Voice record.
         try:
             instance = Voice.objects.get(pk=pk)
         except:
             return Response({'error': 'Not found.'})
-        self.evaluating_ideas(request, "put")
+        self.evaluating_ideas(request, "put")  # Call evaluating_ideas to update the idea.
         serializer = VoiceSerializer(data=request.data, instance=instance)
         serializer.is_valid(raise_exception=True)
-        serializer.save()
-
+        serializer.save()  # Save the updated record.
         return Response(serializer.data)
 
     def destroy(self, request, *args, **kwargs):
-        print(request)
+        # Method for deleting a Voice record.
         pk = kwargs.get("pk", None)
         try:
             voice = Voice.objects.get(pk=pk)
@@ -109,16 +113,14 @@ class ViewSetVoice(viewsets.ModelViewSet):
             return Response({'error': 'Voice not found.'})
 
         idea = Idea.objects.get(pk=voice.idea.id)
-        print(voice.choice)
         if voice.choice == True:
             idea.like -= 1
         else:
             idea.dislike -= 1
-        idea.save()
+        idea.save()  # Update the like and dislike counts of the idea.
 
-        voice.delete()
-
-        return Response({'Destroy': f"{pk} voice"})
+        voice.delete()  # Delete the Voice record.
+        return Response({'Destroy': f"{pk} voice"})  # Return a success message.
 
 
 @receiver(post_save, sender=User)

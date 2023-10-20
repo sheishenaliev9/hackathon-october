@@ -7,6 +7,7 @@ from .models import Profile, Idea, Comment, Category, Voice
 
 class ProfileSerializer(serializers.ModelSerializer):
     avatar = serializers.ImageField(required=False)
+    background = serializers.ImageField(required=False)
 
     class Meta:
         model = Profile
