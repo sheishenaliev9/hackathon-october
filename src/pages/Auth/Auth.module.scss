@@ -1,0 +1,80 @@
+.auth {
+  padding: 40px 0;
+  width: 100%;
+  margin: 120px auto;
+  display: flex;
+  justify-content: center;
+
+  .auth__form {
+    width: 45%;
+    padding: 30px 12px;
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    justify-content: center;
+    gap: 25px;
+
+    border-radius: 15px;
+    box-shadow: 0 4px 4.25px 0.75px rgba(0, 0, 0, 0.13);
+
+    .error {
+      color: red;
+    }
+
+    .errorInput {
+      width: 80%;
+      padding: 8px 15px;
+      border-radius: 5px;
+      border: 1px solid red;
+    }
+
+    h2 {
+      color: #ffb400;
+      font-size: 32px;
+      letter-spacing: 2px;
+    }
+
+    .form__input {
+      width: 80%;
+      padding: 8px 15px;
+      border-radius: 5px;
+      border: 1px solid #ccc;
+      font-weight: 700;
+    }
+    input:focus {
+      outline: 1px solid #ffb400;
+    }
+
+    .passwordBlock {
+      min-width: 80%;
+      position: relative;
+
+      input {
+        width: 100%;
+      }
+
+      svg {
+        position: absolute;
+        right: 5%;
+        top: 20%;
+        font-size: 20px;
+      }
+    }
+  }
+
+  .loginLink {
+    color: #4a4e69;
+    font-family: "Nunito", sans-serif;
+    font-size: 18px;
+
+    a {
+      color: blue;
+      font-weight: 700;
+      transition: 0.3s;
+
+      &:hover {
+        color: #8268f5;
+      }
+    }
+  }
+}

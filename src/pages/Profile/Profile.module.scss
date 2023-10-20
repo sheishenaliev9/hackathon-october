@@ -1,0 +1,102 @@
+.profile {
+  width: 100%;
+  margin: 110px 0;
+  .profile__about {
+    width: 60%;
+    margin: 0 auto;
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    gap: 30px;
+
+    .createIdea {
+      background-color: transparent;
+      border: none;
+      outline: none;
+      
+      a {
+        font-weight: 700;
+        font-size: 18px;
+        color: #4a4e69;
+        display: flex;
+        align-items: center;
+        gap: 10px;
+        transition: .3s;
+
+        &:hover {
+          color: #8268f5;
+        }
+
+        svg {
+          font-size: 28px;
+        }
+      }
+    }
+
+
+    .profile__image {
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      flex-direction: column;
+      img {
+        width: 30%;
+      }
+
+      svg {
+        font-size: 66px;
+      }
+    }
+
+    .profile__title {
+      width: 100%;
+      display: flex;
+      flex-direction: column;
+      align-items: center;
+      gap: 40px;
+
+      input {
+        width: 60%;
+        outline: none;
+        border: none;
+        border-bottom: 1px solid;
+        font-weight: 700;
+        color: #000;
+        font-size: 16px;
+
+        &:disabled {
+          background-color: transparent;
+        }
+      }
+
+      label {
+        font-family: sans-serif;
+        color: #4a4e69;
+      }
+
+      .profile__actions {
+        display: flex;
+        align-items: center;
+        gap: 20px;
+
+        .profile__actions__logout {
+          border: none;
+          background-color: rgb(207, 89, 76);
+          color: #fff;
+          padding: 7px 15px;
+          border-radius: 5px;
+          font-size: 15px;
+          letter-spacing: 2px;
+          transition: 0.3s;
+          border: 2px solid rgb(207, 89, 76);
+          outline: none;
+
+          &:hover {
+            background-color: transparent;
+            color: #4a4e69;
+          }
+        }
+      }
+    }
+  }
+}
