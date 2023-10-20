@@ -27,8 +27,11 @@
     gap: 45px;
 
     .idea {
+      display: flex;
+      flex-direction: column;
+      justify-content: flex-end;
       width: 70%;
-      height: 60%;
+      min-height: 500px;
       padding: 30px;
       border-radius: 15px;
       box-shadow: 0 4px 4.25px 0.75px rgba(0, 0, 0, 0.13);

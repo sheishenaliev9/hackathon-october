@@ -1,5 +1,5 @@
 import { useEffect, useState } from "react";
-import { getIdeas, choiceVoice } from "../../store";
+import { getIdeas } from "../../store";
 import { useAppDispatch, useAppSelector } from "../../hooks";
 import { IdeasType } from "../../types/index.type";
 import { Link } from "react-router-dom";
@@ -7,9 +7,10 @@ import {
   AiOutlineLike,
   AiOutlineDislike,
   AiOutlineArrowRight,
-  AiOutlineQuestionCircle,
 } from "react-icons/ai";
+import imageNotFound from "../../assets/imageNotFoud.png";
 import styles from "./Ideas.module.scss";
+import { NotFound } from "../../components";
 
 export const Ideas = () => {
   const [value, setValue] = useState<string>("");
@@ -30,7 +31,7 @@ export const Ideas = () => {
   }, [ideas, value]);
 
   if (!ideas || ideas.length === 0) {
-    return <h1>error</h1>;
+    return <NotFound />;
   }
 
   const handleSearch: React.ChangeEventHandler<HTMLInputElement> = (e) => {
@@ -51,7 +52,7 @@ export const Ideas = () => {
 
       <div className={styles.ideasList}>
         {filteredIdeas.length === 0 ? (
-          <h2>No results found</h2>
+          <NotFound />
         ) : (
           filteredIdeas.map((idea: IdeasType) => (
             <IdeaItem key={idea.id} idea={idea} />
@@ -67,18 +68,16 @@ interface IdeaProps {
 }
 
 export const IdeaItem: React.FC<IdeaProps> = ({ idea }) => {
-  const { title, photo, views, id, like, dislike, voice } = idea;
-
-  const dispatch = useAppDispatch();
-
-  const voiceFunc = (isLike: boolean) => {
-    dispatch(choiceVoice({ ...voice, id: Number(idea.id), choice: isLike }));
-  };
+  const { title, photo, views, id, like, dislike } = idea;
 
   return (
     <div className={styles.idea}>
       <div className={styles.idea__image}>
-        {photo ? <img src={photo} alt="" /> : <AiOutlineQuestionCircle />}
+        {photo ? (
+          <img src={photo} alt="" />
+        ) : (
+          <img src={imageNotFound} alt="" />
+        )}
       </div>
 
       <div className={styles.idea__content}>
@@ -93,9 +92,9 @@ export const IdeaItem: React.FC<IdeaProps> = ({ idea }) => {
         <div className={styles.idea__actions}>
           <p>{views} просмотров</p>
           <div>
-            <AiOutlineLike onClick={() => voiceFunc(true)} />
+            <AiOutlineLike />
             <p>{like}</p>
-            <AiOutlineDislike onClick={() => voiceFunc(false)} />
+            <AiOutlineDislike />
             <p>{dislike}</p>
           </div>
         </div>

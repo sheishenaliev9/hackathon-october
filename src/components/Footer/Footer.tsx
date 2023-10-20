@@ -47,7 +47,7 @@ export const Footer = () => {
         </div>
       </div>
 
-      <div className={styles.footer__under}>
+      <div id="footer" className={styles.footer__under}>
         <div className="container">
           <div className={styles.under__inner}>
             <img src={logo} alt="logo" />

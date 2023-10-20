@@ -7,17 +7,24 @@ import { createIdea } from "../../store";
 import { createIdeaType } from "../../types/index.type";
 
 export const CreateIdea = () => {
-  const { register, handleSubmit, setValue } = useForm<createIdeaType>();
+  const { register, handleSubmit, reset } = useForm<createIdeaType>();
 
   const { user } = useAppSelector((state) => state.users);
   const dispatch = useAppDispatch();
-  console.log(user)
 
   const onSubmit = async (data: createIdeaType) => {
     try {
-      setValue("user", Number(user.id));
-      await dispatch(createIdea({ ...data, user: Number(user.id) }));
-      console.log(data)
+      const formData = new FormData();
+      formData.append("user", String(user.id));
+      formData.append("title", data.title);
+      formData.append("content", data.content);
+      formData.append("image", data.image[0]);
+
+      await dispatch(createIdea(formData));
+
+      // Reset the form after successful submission
+      reset();
+
     } catch (error) {
       console.error("Error creating idea:", error);
     }

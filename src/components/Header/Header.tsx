@@ -7,9 +7,12 @@ import { useAppSelector } from "../../hooks";
 export const Header = () => {
   const { user } = useAppSelector((state) => state.users);
 
-  // const isEmptyObject = (obj: object | null | undefined) => {
-  //   return obj && typeof obj === "object" && Object.keys(obj).length === 0;
-  // };
+  const handleContactsClick = () => {
+    const footerElement = document.getElementById("footer");
+    if (footerElement) {
+      footerElement.scrollIntoView({ behavior: "smooth" });
+    }
+  };
 
   return (
     <header className={styles.header}>
@@ -22,8 +25,9 @@ export const Header = () => {
           <nav className={styles.header__nav}>
             <Link to="/">Главная</Link>
             <Link to="/ideas">Идеи</Link>
-            <Link to="/">Контакты</Link>
-            <Link to="/">О нас</Link>
+            <Link to="/" onClick={handleContactsClick}>
+              Контакты
+            </Link>
           </nav>
 
           <div className={styles.registration}>

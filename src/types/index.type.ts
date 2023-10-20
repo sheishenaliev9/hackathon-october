@@ -38,18 +38,28 @@ export type Inputs = {
 };
 
 export type ProfileType = {
-  email: string;
+  id: number
   password: string;
   username: string;
   phone: string;
   description: string;
   user: number;
-  profile: object;
+  email: string;
+  profile: {
+    description: string;
+    id: number;
+    avatar: string | null;
+    background: string | null;
+    phone: string;
+    email: string;
+    user: number;
+  };
 };
 
+
 export type createIdeaType = {
-  image: string;
+  user: number;
   title: string;
   content: string;
-  user: number;
+  image: FileList;
 };

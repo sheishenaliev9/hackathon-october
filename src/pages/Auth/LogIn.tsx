@@ -23,7 +23,7 @@ export const Login = () => {
       console.log(user);
 
       if (user && user.id) {
-        navigate(`/profile/${Number(user.id)}`);
+        navigate(`/profile/${user.id}`);
       } else {
         console.error("Не удалось получить ID пользователя после входа");
       }

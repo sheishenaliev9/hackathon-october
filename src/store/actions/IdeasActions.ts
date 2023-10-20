@@ -1,8 +1,9 @@
 import { createAsyncThunk } from "@reduxjs/toolkit";
 import axios, { AxiosError } from "axios";
-import { IdeasType, createIdeaType } from "../../types/index.type";
+import { IdeasType } from "../../types/index.type";
+import { toast } from "react-toastify";
 
-const IDEAS_URL = "http://192.168.88.59:8000/api/v1";
+const IDEAS_URL = "http://127.0.0.1:8000/api/v1";
 const TOKEN = "e297f7cfcce703fcb6c01c6733c580dee7ed11a9";
 
 export const getIdeas = createAsyncThunk(
@@ -28,14 +29,14 @@ export const getIdeas = createAsyncThunk(
 
 export const createIdea = createAsyncThunk(
   "createIdea",
-  async (idea: createIdeaType, { rejectWithValue }) => {
+  async (formData: FormData, { rejectWithValue }) => {
     try {
-      const { data } = await axios.post(`${IDEAS_URL}/ideas/`, idea, {
+      const { data } = await axios.post(`${IDEAS_URL}/ideas/`, formData, {
         headers: {
           Authorization: `token ${TOKEN}`,
         },
       });
-
+      toast.success("Идея успешно опубликовано!")
       return data;
     } catch (error) {
       if (axios.isAxiosError(error)) {

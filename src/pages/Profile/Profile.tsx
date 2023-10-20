@@ -1,13 +1,13 @@
 import { useNavigate, useParams } from "react-router";
-import styles from "./Profile.module.scss";
 import { FormEvent, useEffect, useState } from "react";
 import { useAppDispatch, useAppSelector } from "../../hooks";
 import { EditUserProfile, getUser, logOut } from "../../store";
-import { AiOutlineUser } from "react-icons/ai";
+import { AiOutlineUser, AiOutlineArrowRight } from "react-icons/ai";
 import { CustomButton } from "../../components";
 import { SubmitHandler, useForm } from "react-hook-form";
-import { ProfileType, UserType } from "../../types/index.type";
+import { ProfileType } from "../../types/index.type";
 import { Link } from "react-router-dom";
+import styles from "./Profile.module.scss";
 
 export const Profile = () => {
   const [isDisabled, setIsDisabled] = useState(true);
@@ -19,46 +19,34 @@ export const Profile = () => {
   const { handleSubmit, setValue } = useForm<ProfileType>();
 
   const onSubmit: SubmitHandler<ProfileType> = async (formData) => {
-    const updatedProfile = {
-      ...(user?.profile || {}),
-      ...formData,
+    const updatedProfileData = {
+      user: user?.profile?.user,
+      description: formData.profile.description || user?.profile?.description,
+      phone: formData.profile.phone || user?.profile?.phone,
+      email: formData.profile.email || user?.email,
     };
-
-    const { id, email, ...profileWithoutId } = updatedProfile;
 
     await dispatch(
       EditUserProfile({
         id: Number(id),
-        data: {
-          profile: profileWithoutId,
-          user: user?.profile?.user,
-          email: email || "", // если email не определен, устанавливаем значение по умолчанию
-        },
+        data: updatedProfileData,
       })
     );
-    console.log(profileWithoutId);
   };
-
-  // const username = user?.username ?? "Name";
-  // const email = user?.email ?? "Email";
-  // const phoneNumber = user?.profile?.phone ?? "Phone";
-  // const description = user?.profile?.description ?? "Description";
-  // const avatar = user?.profile?.avatar ?? <AiOutlineUser />;
 
   const handleChange = (e: FormEvent<HTMLButtonElement>) => {
     e.preventDefault();
     setIsDisabled(!isDisabled);
 
     if (!isDisabled) {
-      setValue("description", user?.profile?.description);
-      setValue("phone", user?.profile?.phone);
-      setValue("email", user?.profile?.email);
-      setValue("user", user?.profile?.user);
+      setValue("profile.description", user?.profile?.description);
+      setValue("profile.phone", user?.profile?.phone);
+      setValue("profile.email", user?.email);
     }
   };
 
   const handleLogOut = () => {
-    dispatch(logOut({} as UserType));
+    dispatch(logOut());
     navigate("/login");
   };
 
@@ -84,7 +72,7 @@ export const Profile = () => {
             defaultValue={user?.profile?.description}
             disabled={isDisabled}
             placeholder="description"
-            onChange={(e) => setValue("description", e.target.value)}
+            onChange={(e) => setValue("profile.description", e.target.value)}
           />
           <label htmlFor="description">Phone</label>
           <input
@@ -93,16 +81,16 @@ export const Profile = () => {
             placeholder="Phone number"
             defaultValue={user?.profile?.phone}
             disabled={isDisabled}
-            onChange={(e) => setValue("phone", e.target.value)}
+            onChange={(e) => setValue("profile.phone", e.target.value)}
           />
           <label htmlFor="description">Email</label>
           <input
             name="email"
             type="text"
             placeholder="Email"
-            defaultValue={user?.profile?.email}
+            defaultValue={user?.email}
             disabled={isDisabled}
-            onChange={(e) => setValue("email", e.target.value)}
+            onChange={(e) => setValue("profile.email", e.target.value)}
           />
           <div className={styles.profile__actions}>
             {isDisabled ? (
@@ -119,7 +107,11 @@ export const Profile = () => {
           </div>
         </form>
 
-        <Link to="/createidea">Создать идею</Link>
+        <button className={styles.createIdea}>
+          <Link to="/createidea">
+            <span>Создать идею</span> <AiOutlineArrowRight />
+          </Link>
+        </button>
       </div>
     </div>
   );

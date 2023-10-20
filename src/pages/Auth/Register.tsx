@@ -8,7 +8,7 @@ import { useState } from "react";
 import styles from "./Auth.module.scss";
 import { Inputs } from "../../types/index.type";
 
-export const Auth = () => {
+export const Register = () => {
   const [eye, setEye] = useState(false);
   const {
     register,
