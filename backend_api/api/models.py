@@ -29,7 +29,7 @@ class Idea(models.Model):
     dislike = models.IntegerField(default=0)
     views = models.IntegerField(default=0)
     user = models.ForeignKey(User, on_delete=models.CASCADE)
-    cat = models.ForeignKey('Category', on_delete=models.PROTECT)
+    cat = models.ForeignKey('Category', on_delete=models.PROTECT, null=True)
 
     def __str__(self):
         return self.title
