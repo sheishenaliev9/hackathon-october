@@ -1,3 +1,4 @@
+from datetime import datetime
 from django.contrib.auth.models import User
 from django.db import models
 
@@ -21,7 +22,7 @@ class Idea(models.Model):
     photo_3 = models.ImageField(upload_to='idea/', blank=True, null=True)
     photo_4 = models.ImageField(upload_to='idea/', blank=True, null=True)
     create = models.DateTimeField(auto_now_add=True)
-    update = models.DateTimeField(auto_now=True)
+    update = models.DateTimeField(default=datetime.now())
     like = models.IntegerField(default=0)
     dislike = models.IntegerField(default=0)
     views = models.IntegerField(default=0)

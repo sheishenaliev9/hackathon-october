@@ -29,7 +29,6 @@ class ViewSetIdea(viewsets.ModelViewSet):
     queryset = Idea.objects.all().order_by('-views', '-create', '-like')
     serializer_class = IdeaSerializer
 
-
     def retrieve(self, request, pk=None):
         idea = self.get_object()
         idea.views += 1  # Increase the views value by 1

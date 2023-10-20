@@ -1,3 +1,4 @@
+from django.utils import timezone
 from rest_framework import serializers
 from django.contrib.auth.models import User
 
@@ -34,6 +35,7 @@ class CategorySerializer(serializers.ModelSerializer):
 
 
 class IdeaSerializer(serializers.ModelSerializer):
+    update = serializers.DateTimeField(default=timezone.now)
     comments = CommentSerializer(many=True, read_only=True)
     category = CategorySerializer(read_only=True, source='cat')
 
