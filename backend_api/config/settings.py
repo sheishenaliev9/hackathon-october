@@ -161,3 +161,5 @@ CORS_ALLOWED_ORIGINS = [
 
 # Allow all headers and methods for simplicity in development
 CORS_ALLOW_ALL_ORIGINS = True
+
+

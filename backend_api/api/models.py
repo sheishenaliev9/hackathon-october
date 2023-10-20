@@ -6,12 +6,17 @@ from django.db import models
 class Profile(models.Model):
     description = models.TextField(max_length=300, null=True, blank=True)
     phone = models.CharField(max_length=30, null=True, blank=True)
+    email = models.CharField(max_length=150)
     avatar = models.ImageField(upload_to='avatar/', null=True, blank=True)
     background = models.ImageField(upload_to='background/', null=True, blank=True)
     user = models.OneToOneField(User, on_delete=models.CASCADE)
 
     def __str__(self):
         return self.user.username
+    
+    class Meta:
+        verbose_name = 'Profile'
+        verbose_name_plural = 'Profiles'
 
 
 class Idea(models.Model):
@@ -28,6 +33,10 @@ class Idea(models.Model):
 
     def __str__(self):
         return self.title
+    
+    class Meta:
+        verbose_name = 'Idea'
+        verbose_name_plural = 'Ideas'
 
 
 class Comment(models.Model):
@@ -38,6 +47,10 @@ class Comment(models.Model):
 
     def __str__(self):
         return f"comment: {self.pk}, user: {self.user}"
+    
+    class Meta:
+        verbose_name = 'Comment'
+        verbose_name_plural = 'Comments'
 
 
 class Category(models.Model):
@@ -45,6 +58,10 @@ class Category(models.Model):
 
     def __str__(self):
         return self.category
+    
+    class Meta:
+        verbose_name = 'Category'
+        verbose_name_plural = 'Categories'
 
 
 class Voice(models.Model):
@@ -54,3 +71,7 @@ class Voice(models.Model):
 
     def __str__(self):
         return f"{self.idea.title}: {self.idea}"
+    
+    class Meta:
+        verbose_name = 'Voice'
+        verbose_name_plural = 'Voices'
